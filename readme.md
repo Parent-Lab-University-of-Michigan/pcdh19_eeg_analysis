@@ -3,7 +3,7 @@
 This should be a pretty easy install. These instructions assume you have MATLAB installed. The scripts were written in R2022a, but other versions should work too.
 1. Download these scripts (into the same folder).
 2. Create a data folder with the `.edf` files in it. This data folder could be anywhere, but it's convinient to put it in the same folder as the scripts.
-3. Install the Matlab version of (chronux)[http://chronux.org/]. In this case, this means downloading the library so there's a folder somewhere with the chronux code.
+3. Install the Matlab version of [chronux](http://chronux.org/). In this case, this means downloading the library so there's a folder somewhere with the chronux code.
 4. Modify `get_directory_info.m` to point to the appropriate directories on your machine.
 5. Modify `get_clip_metadata.m` to reflect the clips in your data directory (this file will change based on your experiment).
 
@@ -37,7 +37,7 @@ data_folder/ (the data folder)
 generated/ (the output folder)
 calculate_comodulogram.m
 ...
-single_channel.m
+single_clip.m
 
 ../../../Documents/MATLAB/chronux_2_11 (the chronux folder)
 ```
