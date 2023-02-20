@@ -2,7 +2,7 @@
 ## Installation and Setup
 This should be a pretty easy install. These instructions assume you have MATLAB installed. The scripts were written in R2022a, but other versions should work too.
 1. Download these scripts (into the same folder).
-2. Create a data folder with the `.edf` files in it. This data folder could be anywhere, but it's convinient to put it in the same folder as the scripts.
+2. Create a data folder with the `.edf` files in it. This data folder could be anywhere, but it's convenient to put it in the same folder as the scripts.
 3. Install the Matlab version of [chronux](http://chronux.org/). In this case, this means downloading the library so there's a folder somewhere with the chronux code.
 4. Modify `get_directory_info.m` to point to the appropriate directories on your machine.
 5. Modify `get_clip_metadata.m` to reflect the clips in your data directory (this file will change based on your experiment).
@@ -45,23 +45,23 @@ single_clip.m
 ## Usage
 The two main scripts you'll want to run will be `single_channel.m` and `multi_channel.m`. Everything else (except `comodulogram_test.m`) supports those two files. `single_channel.m` considers the EEG's individually, while `multi_channel.m` considers groups of them. 
 Conceptually, the single channel analysis is easier to understand, but I spent more time in `multi_channel.m`, so that's better thought-out and documented. 
-Many of the cells in the two scripts paralell each other, so if something doesn't make sense in one, check the other.
+Many of the cells in the two scripts parallel each other, so if something doesn't make sense in one, check the other.
 
 # File explanations
-Note that get_ functions work with the filesystem while calculate_ functions are pure functions. All other files are scripts.
+Note that get_ functions work with the file system while calculate_ functions are pure functions. All other files are scripts.
 * calculate_comodulogram: a function that to create comodulograms given a signal and frequency bands
-* calculate_comodulogram_stack: a function similar to calculate_comodulogram, but it first breaks the signal into chunks and returns the comodulogram for each chunck
+* calculate_comodulogram_stack: a function similar to calculate_comodulogram, but it first breaks the signal into chunks and returns the comodulogram for each chunk
 * comodulogram_test: a script that walks through the process of developing a comodulogram and demonstrates some of their limitations
 * get_clip_metadata: a function that holds the information about the clips that get analysed in the _channel scripts.
 * get_directory_info: a function that stores the paths to important files; it's basically a configuration file
 * get_lfp: this file reads and minimally processes `.edf` files into LFP signals
-* multi_clip.m: this script analyses a set of clips in paralell (formerly multi_channel.m)
+* multi_clip.m: this script analyses a set of clips in parallel (formerly multi_channel.m)
 * single_clip.m: this script analyses clips one at a time (formerly single_channel.m)
 
 # Contact
 The original author of these scripts is Jonathan Gould (jngould@umich.edu).
 
-# Acknoweledgements
+# Acknowledgements
 * Noor Daddo
 * Julie Ziobro
 * Jack Parent
