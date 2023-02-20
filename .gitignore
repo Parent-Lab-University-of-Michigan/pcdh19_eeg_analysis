@@ -1,0 +1,8 @@
+*.asv 
+*.edf
+*.sw*
+*.avi
+*.png
+*.figure
+.DS_store
+data_folder/*
