@@ -43,8 +43,8 @@ single_clip.m
 ```
 
 ## Usage
-The two main scripts you'll want to run will be `single_channel.m` and `multi_channel.m`. Everything else (except `comodulogram_test.m`) supports those two files. `single_channel.m` considers the EEG's individually, while `multi_channel.m` considers groups of them. 
-Conceptually, the single channel analysis is easier to understand, but I spent more time in `multi_channel.m`, so that's better thought-out and documented. 
+The two main scripts you'll want to run will be `single_clip.m` and `multi_clip.m`. Everything else (except `comodulogram_test.m`) supports those two files. `single_clip.m` considers the EEG's individually, while `multi_clip.m` considers groups of them. 
+Conceptually, the single clip analysis is easier to understand, but I spent more time in `multi_clip.m`, so that's better thought-out and documented. 
 Many of the cells in the two scripts parallel each other, so if something doesn't make sense in one, check the other.
 
 # File explanations
@@ -52,7 +52,7 @@ Note that get_ functions work with the file system while calculate_ functions ar
 * calculate_comodulogram: a function that to create comodulograms given a signal and frequency bands
 * calculate_comodulogram_stack: a function similar to calculate_comodulogram, but it first breaks the signal into chunks and returns the comodulogram for each chunk
 * comodulogram_test: a script that walks through the process of developing a comodulogram and demonstrates some of their limitations
-* get_clip_metadata: a function that holds the information about the clips that get analysed in the _channel scripts.
+* get_clip_metadata: a function that holds the information about the clips that get analysed in the _clip scripts.
 * get_directory_info: a function that stores the paths to important files; it's basically a configuration file
 * get_lfp: this file reads and minimally processes `.edf` files into LFP signals
 * multi_clip.m: this script analyses a set of clips in parallel (formerly multi_channel.m)
