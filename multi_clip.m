@@ -10,7 +10,7 @@ addpath(genpath(directory_info.chronux_folder));
 % If it's set to `true`, they will usually produce similar images, but they
 % will annotate wich components have wich genotype.
 
-compare_genotypes = false;
+compare_genotypes = true;
 
 
 wt_color = 	"#0072BD";
@@ -31,8 +31,9 @@ clips = all_clips(all_clips.Temp == "37" & all_clips.Seizure == 0,:);
 
 
 % `clips` contains the subset of the clip information we're interested in;
-% for example, only the 37 degree data. Be careful modifying clips, because
-% it's assumed the columns of `A` match up to the rows of `clips`.
+% for example, only the 37 degree data. Be careful modifying `clips` after 
+% it's been created, because it's assumed the columns of `A` match up to 
+% the rows of `clips`.
 
 
 %% Construct A
@@ -89,6 +90,9 @@ end
 xlabel("time (s)")
 ylabel("EEG amplitude (µV)")
 title("Downsampled EEG traces");
+
+legend(clips.DisplayName)
+
 
 %% Plot all raw traces (scaled) in a stack
 % TODO: the traces look different in this plot; maybe explore that?
@@ -155,7 +159,7 @@ hold off;
 xlabel("Frequency (Hz)")
 ylabel("Power/frequency (dB/Hz)")
 xlim([0,200])
-legend(clips.Animal)
+legend(clips.DisplayName)
 
 
 
@@ -311,7 +315,7 @@ filename = sprintf(filename,datestr(now,'yyyy-mm-dd_HH-MM'));
 save(filename,'comodulograms', 'carrier_frequency_bins', 'modulated_frequency_bins', 'time_to_calculate_on', 'comodulogram_genotypes', 'comodulogram_display_names', 'iqr_normalization')
 
 %% show comodulograms
-% filename ='/Users/jonathangould/Dropbox (University of Michigan)/Winter_2022/rotation_parent/spectral_analysis/generated/2023-02-13_15-35 comodulogram.mat';
+% filename = [directory_info.output_folder filesep "2023-02-13_15-35 comodulogram.mat"];
 
 
 % assuming this is run right after the last block, it loads the last

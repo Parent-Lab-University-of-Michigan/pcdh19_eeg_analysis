@@ -71,14 +71,14 @@ end
 %% This selects one clip in particular to look at for the rest of the file
 
 clip_idx = 1;
-c = detrend(get_lfp(clips.Filename(clip_idx)));
+c = get_lfp(clips.Filename(clip_idx));
 time = (1:size(c,1))/Fs;
 
 
 time1 = clips.Range(clip_idx,1);
 time2 = clips.Range(clip_idx,2);
 
-waveform = c((time1*Fs + 1):time2*Fs,1);
+waveform = detrend(c((time1*Fs + 1):time2*Fs,1));
 waveform_time = time((time1*Fs + 1):time2*Fs);
 
 % c is the clip; it has a left and right channel
@@ -107,6 +107,11 @@ overlap = round(window_length * overlap_ratio);
 [Pxx, f] = pwelch(waveform, window_length, overlap, [], 4096); 
 plot(f, log(Pxx))
 hold on;
+
+xlabel("Frequency (Hz)")
+ylabel("Power/frequency (dB/Hz)")
+xlim([0,200])
+legend(clips.DisplayName)
 
 %% matlab Periodogram
 % this is the same as the previous cell, but with the MATLAB builtin
