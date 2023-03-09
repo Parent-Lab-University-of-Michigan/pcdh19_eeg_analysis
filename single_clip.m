@@ -5,7 +5,7 @@ addpath(genpath(directory_info.chronux_folder));
 
 %% Creates a table of file information
 all_clips = get_clip_metadata(); 
-clips = all_clips(all_clips.Animal == "O",:); 
+clips = all_clips(all_clips.Animal == "B",:); 
 
 Fs = 4096;
 

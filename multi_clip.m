@@ -308,20 +308,32 @@ end
 comodulogram_genotypes = clips.Wildtype;
 comodulogram_display_names = clips.DisplayName;
 
-% calculating the comodulogram can take a long time, so this saves them to
-% be loaded again if needed
-filename = [directory_info.output_folder filesep '%s comodulogram.mat'];
-filename = sprintf(filename,datestr(now,'yyyy-mm-dd_HH-MM'));
-save(filename,'comodulograms', 'carrier_frequency_bins', 'modulated_frequency_bins', 'time_to_calculate_on', 'comodulogram_genotypes', 'comodulogram_display_names', 'iqr_normalization')
+
+
+try_to_save = false;
+if try_to_save
+    % calculating the comodulogram can take a long time, so this saves them to
+    % be loaded again if needed
+    % However, it seems like it broke either on a Windows computer or on
+    % 2022b, so I'm making it optional.
+    % set try_to_save to `true` if you want it to attempt saving/loading
+
+    filename = [directory_info.output_folder filesep '%s comodulogram.mat'];
+    filename = sprintf(filename,string(datetime("now"),'yyyy-MM-dd_HH-mm'));
+    save(filename,'comodulograms', 'carrier_frequency_bins', 'modulated_frequency_bins', 'time_to_calculate_on', 'comodulogram_genotypes', 'comodulogram_display_names', 'iqr_normalization')
+end
+
 
 %% show comodulograms
-filename = [directory_info.output_folder filesep '2023-02-23_21-37 comodulogram.mat'];
 
 
 % assuming this is run right after the last block, it loads the last
 % generated file.
-load(filename)
 
+if try_to_save
+    filename = [directory_info.output_folder filesep '2023-02-23_21-37 comodulogram.mat'];
+    load(filename)
+end
 
 mod_freq_bin_centers = conv(modulated_frequency_bins, [.5, .5], 'valid');
 carr_freq_bin_centers = conv(carrier_frequency_bins, [.5, .5], 'valid');
