@@ -66,7 +66,7 @@ amplitude = abs(hilbert_modulated_bandpass);
 
 %% Work Backwards from downsampled y and compare to true values
 figure;
-tiledlayout(3,2);
+tiledlayout(2,3);
 
 
 ax1 = nexttile(1);
@@ -74,12 +74,12 @@ plot(old_t,y_carrier);
 title("Carrier true signal");
 
 
-ax2 = nexttile(3);
+ax2 = nexttile(2);
 plot(old_t,y_modulated);
 title("Modulated true signal");
 
 
-ax3 = nexttile(5);
+ax3 = nexttile(3);
 plot(old_t,y_full);
 title("Composite signal");
 
@@ -89,14 +89,14 @@ plot(t,y);
 title("Downsampled Signal");
 
 
-ax5 = nexttile(4);
+ax5 = nexttile(5);
 plot(t,modulated_bandpass); hold on;
 plot(t,amplitude);
 title("Estimated modulated signal");
 
 
 
-ax6 = nexttile(2);
+ax6 = nexttile(4);
 plot(t,carrier_bandpass); hold on;
 plot(t,phase);
 title("Estimated carrier signal");

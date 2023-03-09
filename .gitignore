@@ -6,3 +6,5 @@
 *.figure
 .DS_store
 data_folder/*
+*.mat
+generated/*

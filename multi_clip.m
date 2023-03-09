@@ -89,7 +89,7 @@ else
 end
 xlabel("time (s)")
 ylabel("EEG amplitude (µV)")
-title("Downsampled EEG traces");
+title("Stacked EEG traces");
 
 legend(clips.DisplayName)
 
@@ -116,8 +116,8 @@ hold off;
 if compare_genotypes
     legend('');
     hold on;
-    plot([NaN NaN], [NaN NaN], 'Color', wt_color, 'DisplayName', 'Wildtype');
-    plot([NaN NaN], [NaN NaN], 'Color', mt_color, 'DisplayName', 'Mutant');
+    plot([NaN NaN], [NaN NaN], 'Color', wt_color, 'DisplayName', 'Heterozygous');
+    plot([NaN NaN], [NaN NaN], 'Color', mt_color, 'DisplayName', 'Homozygous');
     hold off;
     legend()
 else
@@ -280,21 +280,21 @@ iqr_normalization = false;
 % I sometimes use "carrier" for the frequency you take the phase of
 % (usually the lower) and "modulated" for the frequency you take the
 % amplitude of (usually the higher).
-carrier_frequency_bins = linspace(2,14,1+12*2);
-modulated_frequency_bins = linspace(10,200,1+19*2);
-time_to_calculate_on = 10; % in seconds
+carrier_frequency_bins = linspace(2,14,1+12);
+modulated_frequency_bins = linspace(10,200,1+19);
+time_to_calculate_on = 25; % in seconds
 % I calculate on a limited span of time because it speeds up the
 % calculation
 
 %TODO: check if there's a better way to set the time bins
-n_time_bins = round(round(time_to_calculate_on*carrier_frequency_bins(1))*.75);
+n_time_bins = round(round(time_to_calculate_on*carrier_frequency_bins(1))*.5);
 comodulograms = nan(numel(modulated_frequency_bins)-1, numel(carrier_frequency_bins)-1,size(A,2));
 
 rcfb = [carrier_frequency_bins(1:end-1);carrier_frequency_bins(2:end)]';
 rmfb = [modulated_frequency_bins(1:end-1);modulated_frequency_bins(2:end)]';
 for k=1:size(comodulograms,3)
     if iqr_normalization
-        [comodulograms(:,:,k), ~] = calculate_comodulogram2(A(1:time_to_calculate_on*Fs,k), rcfb, rmfb, Fs, 18,n_time_bins);
+        [~, comodulograms(:,:,k)] = calculate_comodulogram_stack(A(1:time_to_calculate_on*Fs,k), rcfb, rmfb, Fs, 18,n_time_bins);
     else
         comodulograms(:,:,k) = calculate_comodulogram(A(1:time_to_calculate_on*Fs,k), rcfb, rmfb, Fs, 18);
     end
@@ -310,12 +310,12 @@ comodulogram_display_names = clips.DisplayName;
 
 % calculating the comodulogram can take a long time, so this saves them to
 % be loaded again if needed
-filename = [directory_info.output_folder filesep "%s comodulogram.mat"];
+filename = [directory_info.output_folder filesep '%s comodulogram.mat'];
 filename = sprintf(filename,datestr(now,'yyyy-mm-dd_HH-MM'));
 save(filename,'comodulograms', 'carrier_frequency_bins', 'modulated_frequency_bins', 'time_to_calculate_on', 'comodulogram_genotypes', 'comodulogram_display_names', 'iqr_normalization')
 
 %% show comodulograms
-% filename = [directory_info.output_folder filesep "2023-02-13_15-35 comodulogram.mat"];
+filename = [directory_info.output_folder filesep '2023-02-23_21-37 comodulogram.mat'];
 
 
 % assuming this is run right after the last block, it loads the last
@@ -330,17 +330,19 @@ carr_freq_bin_centers = conv(carrier_frequency_bins, [.5, .5], 'valid');
 transformed_comodulograms = log(comodulograms);
 crange = [min(transformed_comodulograms(:)), max(transformed_comodulograms(:))];
 % crange = [0 10] * 10^-4;
+figure;
 for k=1:size(comodulograms,3)
-    figure;
+    subplot(3,3,k)
     imagesc(carr_freq_bin_centers,mod_freq_bin_centers, transformed_comodulograms(:,:,k), crange); 
     axis xy; 
-    colorbar;
+    cb = colorbar;
+    cb.Label.String = "log(MI)";
     added_text = "";
     if compare_genotypes
         if comodulogram_genotypes(k) == 1
-            added_text = " (WT)";
+            added_text = " (HET)";
         else
-            added_text = " (MT)";
+%             added_text = " (HOMOZYGOUS)";
         end
     end
     title(comodulogram_display_names(k) + added_text)

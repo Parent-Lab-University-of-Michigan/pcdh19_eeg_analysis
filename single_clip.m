@@ -109,7 +109,7 @@ plot(f, log(Pxx))
 hold on;
 
 xlabel("Frequency (Hz)")
-ylabel("Power/frequency (dB/Hz)")
+ylabel("Power/frequency (mV^2/Hz)")
 xlim([0,200])
 legend(clips.DisplayName)
 

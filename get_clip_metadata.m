@@ -59,6 +59,6 @@ all_clips.Filename(all_clips.Seizure==0) = nonseizure_prepath + all_clips.Animal
 seizure_prepath = [directory_info.data_folder filesep 'seizure' filesep];
 all_clips.Filename(all_clips.Seizure==1,:) = seizure_prepath + all_clips.Animal(all_clips.Seizure==1,:) + "_"+ all_clips.Temp(all_clips.Seizure==1,:) +'.edf';
 
-all_clips = sortrows(all_clips, 'Wildtype');
+% all_clips = sortrows(all_clips, 'Wildtype');
 end
 
