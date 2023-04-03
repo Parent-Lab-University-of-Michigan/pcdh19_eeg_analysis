@@ -10,10 +10,6 @@ function [channels] = get_lfp(file, channel_prefix)
 %     channels: an (nx2) array of LFP values, where the first column is the
 %         left channel.
 
-if nargin < 2
-    channel_prefix = "x1";
-end
-
 data = edfread(file);
 % TODO: this is orinally returned as a timetable; it might make more sense
 % to keep them that way for long recordings? I'm not sure which functions
@@ -21,6 +17,14 @@ data = edfread(file);
 
 % % this gets metadata for the file
 % edfinfo(file)
+
+if nargin < 2
+    for channel_prefix = "x" + (1:16)
+        if any(strcmp(channel_prefix + "REF", data.Properties.VariableNames))
+            break;
+        end
+    end
+end
 
 
 if ~any(strcmp(channel_prefix+"REF", data.Properties.VariableNames))
