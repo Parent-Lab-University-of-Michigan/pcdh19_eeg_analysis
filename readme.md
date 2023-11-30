@@ -1,11 +1,14 @@
+# About
+This repo contains MATLAB scripts written to check EEG data from the Parent lab for cross-frequency coupling changes as a possible metric for PCDH19 epilepsy. It aims to replicate the analyses found in [this](https://doi.org/10.1523/JNEUROSCI.2132-20.2020) paper.
+
 # Getting Started
 ## Installation and Setup
-This should be a pretty easy install. These instructions assume you have MATLAB installed. The scripts were written in R2022a, but other versions should work too.
+These instructions assume you have MATLAB installed. The scripts were written in R2022a, but other versions should work too.
 1. Install (or check that you have installed) the following MATLAB toolboxes:
-  1. The matlab signal processing toolbox. It provides the `edfread` function, which this code uses.
-  2. The matlab statistics and machine learning toolbox. It provides the `tinv` function, which this code uses.
-  3. The Matlab version of [chronux](http://chronux.org/). In this case, this means downloading the library so there's a folder somewhere with the chronux code.
-2. Download these scripts (into the same folder).
+    1. The matlab signal processing toolbox. It provides the `edfread` function, which this code uses.
+    2. The matlab statistics and machine learning toolbox. It provides the `tinv` function, which this code uses.
+    3. The Matlab version of [chronux](http://chronux.org/). In this case, this means downloading the library so there's a folder somewhere with the chronux code.
+2. Download the scripts in this repo (all into the same folder).
 3. Create a data folder with the `.edf` files in it. This data folder could be anywhere, but it's convenient to put it in the same folder as the scripts.
 4. Modify `get_directory_info.m` to point to the appropriate directories on your machine.
 5. Modify `get_clip_metadata.m` to reflect the clips in your data directory (this file will change based on your experiment).
